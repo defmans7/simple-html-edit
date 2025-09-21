@@ -1,0 +1,17 @@
+{
+  "name": "dj3dw-html-editor",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "bun './HTMLEditor.html'",
+    "build": "bun 'HTMLEditor.build.ts'",
+    "start": "NODE_ENV=production PORT=3032 bun './dist/*.html'"
+  },
+  "dependencies": {
+    "bun-plugin-tailwind": "^0.0.15",
+    "lucide-react": "^0.541.0",
+    "react": "19",
+    "react-dom": "19",
+    "tailwindcss": "^4.1.12"
+  }
+}
