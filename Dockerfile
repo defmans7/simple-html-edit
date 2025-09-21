@@ -11,6 +11,9 @@ RUN bun install
 # Copy the rest of the project files
 COPY . .
 
+# Build the application to dist/
+RUN bun run build
+
 # Expose the port (change if needed)
 EXPOSE 3032
 
