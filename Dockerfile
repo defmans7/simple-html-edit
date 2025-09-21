@@ -15,11 +15,11 @@ COPY . .
 RUN bun run build
 
 # Expose the port (change if needed)
-EXPOSE 3032
+EXPOSE 3001
 
 # Health check to ensure the app is running
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
-  CMD curl -f http://localhost:3032/ || exit 1
+  CMD curl -f http://localhost:3001/ || exit 1
 
 # Default command: run the HTML file with Bun
 CMD ["bun", "run", "start"]
