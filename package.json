@@ -8,6 +8,7 @@
     "start": "NODE_ENV=production PORT=3032 bun './dist/*.html'"
   },
   "dependencies": {
+    "bun": "latest",
     "bun-plugin-tailwind": "^0.0.15",
     "lucide-react": "^0.541.0",
     "react": "19",
