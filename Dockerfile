@@ -13,6 +13,8 @@ RUN bun install
 # Copy the rest of the application code
 COPY . .
 
+RUN bun run build
+
 # Expose the default port (change if your app uses a different port)
 USER bun
 EXPOSE 3000/tcp
