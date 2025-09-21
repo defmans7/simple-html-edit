@@ -8,9 +8,6 @@ WORKDIR /app
 COPY package.json bun.lock ./
 RUN bun install
 
-# BUILD
-RUN bun run build
-
 # Copy the rest of the project files
 COPY . .
 
