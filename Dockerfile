@@ -1,6 +1,10 @@
 # Use official Bun image
 FROM oven/bun:1.2
 
+# Install curl for health checks
+USER root
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
+
 # Set working directory
 WORKDIR /app
 
@@ -15,9 +19,15 @@ COPY . .
 
 RUN bun run build
 
-# Expose the default port (change if your app uses a different port)
+# Switch to bun user for security
 USER bun
+
+# Expose the default port (change if your app uses a different port)
 EXPOSE 3000/tcp
 
-# Start the appUSER bun
+# Add health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD curl -f http://localhost:3000 || exit 1
+
+# Start the app
 CMD ["bun", "start"]
