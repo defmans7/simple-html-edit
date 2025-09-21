@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "bun './HTMLEditor.html'",
     "build": "bun 'HTMLEditor.build.ts'",
-    "start": "NODE_ENV=production PORT=3000 bun './dist/*.html'"
+    "start": "bun server.js",
+    "serve": "bun server.js"
   },
   "dependencies": {
     "bun": "latest",
