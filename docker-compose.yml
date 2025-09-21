@@ -6,10 +6,8 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: dj3dw-html-editor
-    networks:
-        - coolify-proxy
     ports:
-      - "3000:3000"
+      - "3000"
     environment:
       - NODE_ENV=production
       - PORT=3000
