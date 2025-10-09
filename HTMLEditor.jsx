@@ -6,6 +6,7 @@ const HTMLEditor = () => {
   const [viewMode, setViewMode] = useState('editor'); // 'editor' or 'html'
   const editorRef = useRef(null);
   const [isUpdatingFromHTML, setIsUpdatingFromHTML] = useState(false);
+  const prevViewModeRef = useRef(viewMode);
 
   // Handle paste events to preserve formatting
   const handlePaste = (e) => {
@@ -119,13 +120,17 @@ const HTMLEditor = () => {
     }
   };
 
-  // Sync editor content when switching to editor view or when HTML is updated
+  // Sync editor content only when switching to editor view from HTML view
   useEffect(() => {
-    if (viewMode === 'editor' && editorRef.current) {
+    if (viewMode === 'editor' && prevViewModeRef.current === 'html' && editorRef.current) {
       setIsUpdatingFromHTML(true);
       editorRef.current.innerHTML = content;
-      setTimeout(() => setIsUpdatingFromHTML(false), 0);
+      // Use requestAnimationFrame to ensure DOM is updated before resetting flag
+      requestAnimationFrame(() => {
+        setIsUpdatingFromHTML(false);
+      });
     }
+    prevViewModeRef.current = viewMode;
   }, [viewMode, content]);
 
   const formatButtons = [
