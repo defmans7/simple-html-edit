@@ -33,15 +33,35 @@ const HTMLEditor = () => {
 
   // Clean HTML by removing attributes
   const cleanHTML = (html) => {
-    // Remove all HTML attributes except href for links
-    return html.replace(/<(\w+)([^>]*?)>/g, (match, tag, attributes) => {
-      if (tag.toLowerCase() === 'a' && attributes.includes('href=')) {
-        // Keep href attribute for links
-        const hrefMatch = attributes.match(/href=["']([^"']*)["']/);
-        return hrefMatch ? `<${tag} href="${hrefMatch[1]}">` : `<${tag}>`;
+    // Use DOMParser to properly handle HTML structure
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+    
+    // Remove all attributes except href from links
+    const elements = doc.body.querySelectorAll('*');
+    elements.forEach(element => {
+      if (element.tagName.toLowerCase() === 'a') {
+        // Keep only href attribute for links
+        const href = element.getAttribute('href');
+        const attributes = Array.from(element.attributes);
+        attributes.forEach(attr => {
+          if (attr.name !== 'href') {
+            element.removeAttribute(attr.name);
+          }
+        });
+        if (href) {
+          element.setAttribute('href', href);
+        }
+      } else {
+        // Remove all attributes from non-link elements
+        const attributes = Array.from(element.attributes);
+        attributes.forEach(attr => {
+          element.removeAttribute(attr.name);
+        });
       }
-      return `<${tag}>`;
     });
+    
+    return doc.body.innerHTML;
   };
 
   // Update content state from editor

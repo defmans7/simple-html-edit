@@ -9,3 +9,13 @@
   list-style-type: decimal;
   padding-left: 1.5rem;
 }
+
+#editor-window a {
+  color: #2563eb;
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+#editor-window a:hover {
+  color: #1d4ed8;
+}
